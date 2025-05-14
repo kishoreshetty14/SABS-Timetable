@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 350px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: bisque;
+            color: black;
+            border-radius: 5px;
+            border: 1px solid black;
+            padding: 8px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            background-color: #e6c7a5;
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back"> Back</a>
+
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        <form id="staff-login-form">
+            <label for="passcode">Enter Passcode:</label>
+            <input type="password" id="passcode" maxlength="4" placeholder="Enter 4-digit passcode" required>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="error-message">Invalid passcode. Please try again.</p>
+    </div>
+    <script>
+        document.getElementById("staff-login-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+        
+            const passcode = document.getElementById("passcode").value;
+        
+            fetch("https://sabstimetable.onrender.com/api/admin-login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ passcode })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    localStorage.setItem("admin_logged_in", "true"); // ✅ Store login session
+                    window.location.href = "ttadmin.html"; // ✅ Redirect on success
+                } else {
+                    document.getElementById("error-message").style.display = "block"; // Show error
+                }
+            })
+            .catch(error => {
+                console.error("❌ Error:", error);
+                document.getElementById("error-message").textContent = "Server error. Please try again.";
+                document.getElementById("error-message").style.display = "block";
+            });
+        });
+    </script>
+    
+    
+    
+</body>
+</html>

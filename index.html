@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>College Time Table</title>
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+      /* General Styling */
+      body {
+        background-color: #1e293b;
+        margin: 0;
+        text-align: center;
+      }
+      
+      /* Header Styling */
+      header {
+        text-align: center;
+        padding: 5px;
+        background-color: #0f172a;
+        border-bottom: 3px solid #704a45;
+      }
+      
+      h1, h2 {
+        font-family: Arial, sans-serif;
+        font-size: 48px;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+        text-shadow: 0 0 10px #704a45, 0 0 20px #6c4744, 0 0 40px #483131;
+      }
+      
+      /* Section styling */
+      section {
+        margin-top: 60px;
+      }
+      
+      /* Button Styling */
+      .buttons-container {
+        margin-top: 45px;
+      }
+      
+      .button {
+        background-color: rgb(153, 247, 228);
+        color: black;
+        height: 100px;
+        width: 200px;
+        border-radius: 15px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 33px;
+        border: 3px solid #0f172a;
+        box-shadow: 0 0 15px #704a45, 0 0 30px #704a45, 0 0 60px #6c4744;
+        transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      }
+      
+      .button:hover {
+        transform: scale(1.1);
+        background-color: #a0f0db;
+      }
+      
+      /* Responsive Styling */
+      @media (max-width: 768px) {
+        h1, h2 { font-size: 36px; }
+        .button {
+          width: 160px;
+          height: 80px;
+          font-size: 28px;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        h1, h2 { font-size: 28px; }
+        .button {
+          width: 140px;
+          height: 70px;
+          font-size: 24px;
+        }
+      }
+      
+      /* Animation for Heading */
+      h2 {
+        animation: fadeIn 1s ease-in-out;
+      }
+      
+      @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <h1>Seshadripuram Academy Of Business Studies</h1>
+      <p id="datetime" style="color:white; font-size: 18px;"></p>
+    </header>
+    
+    <!-- Main Section -->
+    <section>
+      <h2>Time Table</h2>
+    </section>
+    
+    <!-- Buttons for Navigation -->
+    <div class="buttons-container">
+      <button class="button" onclick="window.location.href='course.html'">
+        <i class="fas fa-user-graduate" style="display: block"></i> STUDENT
+      </button>
+    </div>
+    
+    <div class="buttons-container">
+      <button class="button" onclick="window.location.href='login_staff.html'">
+        <i class="fas fa-chalkboard-teacher" style="display: block"></i> STAFF
+      </button>
+    </div>
+    
+    <div class="buttons-container">
+      <button class="button" onclick="window.location.href='login_admin.html'">
+        <i class="fas fa-user-cog" style="display: block"></i> ADMIN
+      </button>
+    </div>
+    
+    <!-- JavaScript for Live Date & Time -->
+    <script>
+      function updateTime() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        document.getElementById("datetime").innerHTML = now.toLocaleDateString("en-US", options);
+      }
+      setInterval(updateTime, 1000);
+      updateTime(); // Run once on load
+    </script>
+  </body>
+</html>
